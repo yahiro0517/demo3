@@ -8,16 +8,23 @@
 	<body>
 		<h1>Home</h1>
 		
-		<form method="get" th:action="@{/adminPage}">
-			<input type="submit" value="AdminPageへの">
-		</form>
+		<div sec:authorize="hasRole('ADMIN')">   <!-- ROLE_ADMINのユーザのみ表示 -->
+			<form method="get" th:action="@{/adminPage}">
+				<input type="submit" value="AdminPageへの">
+			</form>
+		</div>
 		
-		<form method="get" th:action="@{/userPage}">
-			<input type="submit" value="UserPageへ">
-		</form>
+		<div sec:authorize="hasRole('USER')">   <!-- ROLE_USERのユーザのみ表示 -->
+			<form method="get" th:action="@{/userPage}">
+				<input type="submit" value="UserPageへ">
+			</form>		
+		</div>
 		
-		<form method="post" th:action="@{/logout}">
-			<input type="submit" value="ログアウト">
-		</form>
+		<div sec:authorize="isAuthenticated()">   <!-- ログイン済みのユーザのみ表示 -->
+			<form method="post" th:action="@{/logout}">
+				<input type="submit" value="ログアウト">
+			</form>
+		</div>
+		
 	</body>
 </html>
